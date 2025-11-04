@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "380579261695",
+    "project_id": "productpulse-app",
+    "storage_bucket": "productpulse-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380579261695:android:96d7c2073e08aa6501f0ca",
+        "android_client_info": {
+          "package_name": "com.example.productpulse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqEC-HX9lIxdccvxe_S5gzOrztq_2uAXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
