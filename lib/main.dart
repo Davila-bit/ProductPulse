@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Product Pulse',
       theme: getCatppuccinMochaTheme(),
       debugShowCheckedModeBanner: false,
-      home: ProductListScreen(),
+      home: const ProductListScreen(),
     );
   }
 }
