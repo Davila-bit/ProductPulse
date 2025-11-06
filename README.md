@@ -1,6 +1,6 @@
 # Product Pulse
 
-A Flutter-based product management application built with Firebase Firestore. This app demonstrates real-time database operations and modern mobile development practices.
+A Flutter-based inventory management application built with Firebase Firestore for homelab equipment tracking. This app demonstrates real-time database operations and modern mobile development practices with advanced filtering and analytics.
 
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
@@ -8,18 +8,72 @@ A Flutter-based product management application built with Firebase Firestore. Th
 
 ## Overview
 
-Product Pulse provides a straightforward interface for managing product inventories. The application connects to Firebase Firestore to handle all data operations, ensuring information stays synchronized across devices. Users can add products with pricing and descriptions, update existing entries, and remove items as needed.
+Product Pulse provides a comprehensive interface for managing homelab equipment inventories. The application connects to Firebase Firestore to handle all data operations, ensuring information stays synchronized across devices in real-time. Users can track products with detailed information including name, category, quantity, price, and descriptions.
 
-The interface uses the Catppuccin Mocha color scheme, which provides good contrast and reduces eye strain during extended use. All CRUD operations happen in real-time, so changes appear immediately without requiring manual refreshes.
+The interface uses the Catppuccin Mocha color scheme, which provides excellent contrast and reduces eye strain during extended use. All CRUD operations happen in real-time, so changes appear immediately without requiring manual refreshes.
+
+## Features
+
+### Core Functionality
+- **Create**: Add new inventory items with validation
+- **Read**: View all items in real-time with automatic updates
+- **Update**: Edit existing items with pre-filled forms
+- **Delete**: Remove items with confirmation dialogs
+
+### Data Model
+Each product includes:
+- **name** (String): Product name
+- **quantity** (int): Stock quantity with low/out of stock indicators
+- **price** (double): Product price in USD
+- **category** (String): Product category (Networking, Storage, Computing, Power, Cooling, Monitoring, Accessories)
+- **description** (String): Detailed product description
+- **createdAt** (DateTime): Timestamp with automatic Firestore conversion
+
+## Enhanced Features Implemented
+
+### 1. Advanced Search & Filtering
+- **Real-time Search**: Search products by name or description as you type
+- **Category Filters**: Filter by 7 equipment categories with visual chip selection
+- **Stock Status Filters**: Filter by "All", "In Stock", "Low Stock" (<5 items), or "Out of Stock"
+- **Visual Indicators**: Color-coded badges for low stock (yellow) and out of stock (red) items
+- **Responsive UI**: Horizontal scrolling filter chips for easy navigation
+
+### 2. Data Insights Dashboard
+Accessible via dashboard icon in app bar, provides:
+- **Summary Statistics**:
+  - Total unique items count
+  - Total inventory value (quantity × price)
+  - Number of categories
+  - Total stock quantity
+- **Out of Stock Alert**: Lists all items with 0 quantity
+- **Low Stock Warning**: Shows items with quantity < 5
+- **Category Breakdown**: Detailed analysis per category including:
+  - Item count per category
+  - Total value per category
+  - Total quantity per category
+  - Sorted by total value (highest first)
 
 ## Technical Stack
 
-- Flutter framework for cross-platform development
-- Firebase Firestore for cloud-based NoSQL database
-- Material Design 3 components
-- StreamBuilder for reactive UI updates
+- **Flutter**: Cross-platform mobile development framework
+- **Firebase Firestore**: Cloud-based NoSQL database with real-time sync
+- **Material Design 3**: Modern UI components
+- **StreamBuilder**: Reactive UI updates
+- **Catppuccin Mocha**: Custom dark theme for reduced eye strain
 
-## Running the Application
+## Project Structure
 
-Install dependencies with `flutter pub get`. Configure Firebase by running `flutterfire configure` and selecting your project. Create a Firestore database in test mode from the Firebase console. Run the app using `flutter run` with your preferred device target.
-
+```
+lib/
+├── main.dart                          # App entry point
+├── models/
+│   └── product.dart                   # Product data model with Firestore conversion
+├── services/
+│   └── firebase_service.dart          # Firestore CRUD operations
+├── screens/
+│   ├── product_list_screen.dart       # Main screen with search & filters
+│   ├── add_edit_product_screen.dart   # Form for adding/editing products
+│   └── dashboard_screen.dart          # Analytics dashboard
+└── theme/
+    └── catppuccin_theme.dart          # Custom color scheme
+```
