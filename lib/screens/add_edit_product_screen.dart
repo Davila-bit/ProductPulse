@@ -15,25 +15,40 @@ class AddEditProductScreen extends StatefulWidget {
 class _AddEditProductScreenState extends State<AddEditProductScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
+  final _quantityController = TextEditingController();
   final _priceController = TextEditingController();
   final _descriptionController = TextEditingController();
   final FirebaseService _firebaseService = FirebaseService();
 
   bool _isLoading = false;
+  String _selectedCategory = 'Networking';
+
+  final List<String> _categories = [
+    'Networking',
+    'Storage',
+    'Computing',
+    'Power',
+    'Cooling',
+    'Monitoring',
+    'Accessories',
+  ];
 
   @override
   void initState() {
     super.initState();
     if (widget.product != null) {
       _nameController.text = widget.product!.name;
+      _quantityController.text = widget.product!.quantity.toString();
       _priceController.text = widget.product!.price.toString();
       _descriptionController.text = widget.product!.description;
+      _selectedCategory = widget.product!.category;
     }
   }
 
   @override
   void dispose() {
     _nameController.dispose();
+    _quantityController.dispose();
     _priceController.dispose();
     _descriptionController.dispose();
     super.dispose();
@@ -49,8 +64,11 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
         final product = Product(
           id: widget.product?.id,
           name: _nameController.text.trim(),
+          quantity: int.parse(_quantityController.text.trim()),
           price: double.parse(_priceController.text.trim()),
+          category: _selectedCategory,
           description: _descriptionController.text.trim(),
+          createdAt: widget.product?.createdAt,
         );
 
         if (widget.product == null) {
@@ -130,13 +148,53 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                               },
                             ),
                             const SizedBox(height: 16),
+                            DropdownButtonFormField<String>(
+                              value: _selectedCategory,
+                              decoration: const InputDecoration(
+                                labelText: 'Category',
+                                prefixIcon: Icon(Icons.category),
+                              ),
+                              items: _categories.map((category) {
+                                return DropdownMenuItem(
+                                  value: category,
+                                  child: Text(category),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedCategory = value!;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              controller: _quantityController,
+                              decoration: const InputDecoration(
+                                labelText: 'Quantity',
+                                prefixIcon: Icon(Icons.inventory),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Please enter a quantity';
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return 'Please enter a valid number';
+                                }
+                                if (int.parse(value) < 0) {
+                                  return 'Quantity must be positive';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 16),
                             TextFormField(
                               controller: _priceController,
                               decoration: const InputDecoration(
                                 labelText: 'Price',
                                 prefixIcon: Icon(Icons.attach_money),
                               ),
-                              keyboardType: TextInputType.numberWithOptions(decimal: true),
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true),
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {
                                   return 'Please enter a price';
