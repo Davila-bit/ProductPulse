@@ -14,6 +14,16 @@ The interface uses the Catppuccin Mocha color scheme, which provides excellent c
 
 ## Features
 
+### Authentication
+- **User Registration**: Email and password registration with validation
+  - Email must be in valid format (e.g., test@gsu.com)
+  - Password must be at least 6 characters
+- **User Sign In**: Secure login with Firebase Authentication
+- **Profile Screen**: View user email and manage account
+- **Change Password**: Update password from profile screen
+- **Logout**: Sign out functionality with redirect to login screen
+- **Session Management**: Automatic authentication state tracking
+
 ### Core Functionality
 - **Create**: Add new inventory items with validation
 - **Read**: View all items in real-time with automatic updates
@@ -56,6 +66,7 @@ Accessible via dashboard icon in app bar, provides:
 ## Technical Stack
 
 - **Flutter**: Cross-platform mobile development framework
+- **Firebase Authentication**: Secure user authentication and management
 - **Firebase Firestore**: Cloud-based NoSQL database with real-time sync
 - **Material Design 3**: Modern UI components
 - **StreamBuilder**: Reactive UI updates
@@ -65,12 +76,15 @@ Accessible via dashboard icon in app bar, provides:
 
 ```
 lib/
-├── main.dart                          # App entry point
+├── main.dart                          # App entry point with auth state management
 ├── models/
 │   └── product.dart                   # Product data model with Firestore conversion
 ├── services/
+│   ├── auth_service.dart              # Firebase Authentication operations
 │   └── firebase_service.dart          # Firestore CRUD operations
 ├── screens/
+│   ├── auth_screen.dart               # Login and registration screen
+│   ├── profile_screen.dart            # User profile with logout and password change
 │   ├── product_list_screen.dart       # Main screen with search & filters
 │   ├── add_edit_product_screen.dart   # Form for adding/editing products
 │   └── dashboard_screen.dart          # Analytics dashboard
