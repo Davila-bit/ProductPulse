@@ -149,7 +149,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                             ),
                             const SizedBox(height: 16),
                             DropdownButtonFormField<String>(
-                              value: _selectedCategory,
+                              initialValue: _selectedCategory,
                               decoration: const InputDecoration(
                                 labelText: 'Category',
                                 prefixIcon: Icon(Icons.category),
