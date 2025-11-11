@@ -4,6 +4,7 @@ import '../services/firebase_service.dart';
 import '../theme/catppuccin_theme.dart';
 import 'add_edit_product_screen.dart';
 import 'dashboard_screen.dart';
+import 'profile_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -99,6 +100,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
               );
             },
             tooltip: 'Dashboard',
+          ),
+          IconButton(
+            icon: const Icon(Icons.account_circle),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
+            },
+            tooltip: 'Profile',
           ),
         ],
       ),
