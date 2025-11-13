@@ -63,11 +63,64 @@ Accessible via dashboard icon in app bar, provides:
   - Total quantity per category
   - Sorted by total value (highest first)
 
+### 3. Firebase Cloud Messaging (Push Notifications)
+- **FCM Token Generation**: Automatically retrieves and displays FCM token in console
+- **Topic Subscription**: Subscribes to "productpulse" topic for broadcast messages
+- **Foreground Notifications**: Displays custom dialog when app is open
+- **Background Notifications**: Handles messages when app is in background
+- **Notification Types**:
+  - **Regular Notifications**: Blue themed dialog with notification icon
+  - **Important Notifications**: Red themed dialog with warning icon and "IMPORTANT" badge
+- **Custom Data Handling**: Supports custom quotes and notification types via data payload
+- **Permission Handling**: Requests and manages notification permissions
+- **Customized UI**: Different colors, icons, and styling based on notification importance
+
+## How to Test Firebase Cloud Messaging
+
+### Step 1: Get FCM Token
+1. Run the app on your device or emulator
+2. Check the terminal/console output
+3. Look for the FCM token printed between the separator lines:
+   ```
+   =========================================
+   FCM Token: <your-token-here>
+   =========================================
+   ```
+4. Copy this token for testing
+
+### Step 2: Send Test Notifications from Firebase Console
+1. Go to Firebase Console → Your Project → Engage → Messaging
+2. Click "Create your first campaign" or "New campaign"
+3. Select "Firebase Notification messages"
+
+#### For Regular Notification:
+- **Title**: "Daily Quote"
+- **Text**: "Success is not final, failure is not fatal."
+- **Additional options** → **Custom data**:
+  - Key: `type`, Value: `regular`
+  - Key: `quote`, Value: "Success is not final, failure is not fatal."
+
+#### For Important Notification:
+- **Title**: "Important Alert"
+- **Text**: "System maintenance scheduled tonight."
+- **Additional options** → **Custom data**:
+  - Key: `type`, Value: `important`
+  - Key: `quote`, Value: "System maintenance scheduled tonight at 10 PM."
+
+5. Click "Send test message"
+6. Paste your FCM token
+7. Click "Test"
+
+### Expected Behavior:
+- **Regular**: Blue dialog with notification bell icon
+- **Important**: Red dialog with warning icon and "IMPORTANT" badge
+
 ## Technical Stack
 
 - **Flutter**: Cross-platform mobile development framework
 - **Firebase Authentication**: Secure user authentication and management
 - **Firebase Firestore**: Cloud-based NoSQL database with real-time sync
+- **Firebase Cloud Messaging**: Push notification service
 - **Material Design 3**: Modern UI components
 - **StreamBuilder**: Reactive UI updates
 - **Catppuccin Mocha**: Custom dark theme for reduced eye strain
